@@ -7,8 +7,9 @@ Material disponível na [wiki](https://github.com/Insper/Z01.1/wiki)
 ## Clonando
 
 ``` bash
+$ # Clone o repositório
 $ git clone https://github.com/Insper/Z01.1
 $ cd Z01.1
-$ git submodule update --init --recursive
-$ git submodule foreach 'git stash; git checkout master; git pull'
+$ # instale e/ou atualize o Z01.1
+$ updateZ01tools.sh
 ```
