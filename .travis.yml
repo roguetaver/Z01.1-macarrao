@@ -43,7 +43,7 @@ before_script:
   - export VUNIT_MODELSIM_PATH=$HOME/modelsim_ase/bin/
 
 script:
-  - python3 Projetos/0-Infra/testeVHDL.py -v
+#  - python3 Projetos/0-Infra/testeVHDL.py -v
   - python Projetos/src/C-LogicaCombinacional/testeLogicaCombinacional.py
   - python Projetos/src/D-UnidadeLogicaAritmetica/testeULA.py
     #  - python Projetos/src/E-LogicaSequencial/testeLogicaSequencial.py
