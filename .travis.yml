@@ -43,6 +43,9 @@ before_script:
   - export VUNIT_MODELSIM_PATH=$HOME/modelsim_ase/bin/
 
 script:
+ ## Instal Z01.1 tools
+  - bash updateZ01tools.sh 
+  
 #  - python3 Projetos/0-Infra/testeVHDL.py -v
   - python Projetos/C-LogicaCombinacional/testeLogicaCombinacional.py
   - python Projetos/D-UnidadeLogicaAritmetica/testeULA.py
