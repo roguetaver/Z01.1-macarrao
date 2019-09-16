@@ -60,6 +60,7 @@ end component;
 
 signal q0,q1,q2,q3,q4,q5,q6,q7: STD_LOGIC;
 signal out0,out1,out2,out3,out4,out5,out6,out7: STD_LOGIC_VECTOR(15 downto 0);
+signal outram: STD_LOGIC_VECTOR(15 downto 0);
 
 
 begin
@@ -67,11 +68,18 @@ begin
 DM: Dmux8Way port map (load,address(2 downto 0), q0,q1,q2,q3,q4,q5,q6,q7);
 
 
-r1: Ram8 port map (clock, input(15 downto 0), load, address(2 downto 0), output(15 downto 0));
+r1: Ram8 port map (clock, input(15 downto 0), load, address(2 downto 0),out0);
+r2: Ram8 port map (clock, input(15 downto 0), load, address(2 downto 0),out1);
+r3: Ram8 port map (clock, input(15 downto 0), load, address(2 downto 0),out2);
+r4: Ram8 port map (clock, input(15 downto 0), load, address(2 downto 0),out3);
+r5: Ram8 port map (clock, input(15 downto 0), load, address(2 downto 0),out4);
+r6: Ram8 port map (clock, input(15 downto 0), load, address(2 downto 0),out5);
+r7: Ram8 port map (clock, input(15 downto 0), load, address(2 downto 0),out6);
+r8: Ram8 port map (clock, input(15 downto 0), load, address(2 downto 0),out7);
 
 
 
-M: Mux8Way16 port map (out0,out1,out2,out3,out4,out5,out6,out7,address(2 downto 0),output);
+M: Mux8Way16 port map (out0,out1,out2,out3,out4,out5,out6,out7,address(2 downto 0), output);
 
 
 
