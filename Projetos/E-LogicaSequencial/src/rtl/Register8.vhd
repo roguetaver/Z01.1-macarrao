@@ -39,6 +39,6 @@ begin
 	r5: BinaryDigit port map (clock, input(5),load, output(5));
 	r6: BinaryDigit port map (clock, input(6),load, output(6));
 	r7: BinaryDigit port map (clock, input(7),load, output(7));
-
+	
 
 end architecture;
