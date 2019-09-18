@@ -7,7 +7,6 @@ import os
 import sys, subprocess, time
 from pathlib import Path
 sys.path.insert(0, str(Path.home()) + '/Z01-Tools/scripts/')
-
 from config import *
 
 if __name__ == "__main__":
@@ -15,7 +14,7 @@ if __name__ == "__main__":
     noti = notificacao("D-ULA\n")
 
     if writeSOF(CDF_ULA_PATH):
-        noti.error("FPGA NÃ̀O PROGRAMADA!")
+        noti.error("FPGA NAO PROGRAMADA!")
         sys.exit(ERRO_PROGRAMING)
     noti.ok("FPGA programada!")
     print('------------------- Concluido')
