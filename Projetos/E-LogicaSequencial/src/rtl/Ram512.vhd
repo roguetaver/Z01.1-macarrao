@@ -55,7 +55,7 @@ component Ram64 is
 			load:    in  STD_LOGIC;
 			address: in  STD_LOGIC_VECTOR( 5 downto 0);
 			output:  out STD_LOGIC_VECTOR(15 downto 0));
-	end component
+	end component;
   
 signal vetor1,vetor2,vetor3,vetor4,vetor5,vetor6,vetor7,vetor8: STD_LOGIC;
 signal outA, outB, outC, outD, outE, outF, outG, outH :std_logic_vector(15 downto 0);
@@ -65,14 +65,14 @@ begin
 
 	dmux: DMux8Way port map(load,address(8 downto 6),vetor1,vetor2,vetor3,vetor4,vetor5,vetor6,vetor7,vetor8);
 	
-	a: Ram64 port map(clock, input, v1, address(5 downto 0), outA);
-	b: Ram64 port map(clock, input, v2, address(5 downto 0), outB);
-	c: Ram64 port map(clock, input, v3, address(5 downto 0), outC);
-	d: Ram64 port map(clock, input, v4, address(5 downto 0), outD);
-	e: Ram64 port map(clock, input, v5, address(5 downto 0), outE);
-	f: Ram64 port map(clock, input, v6, address(5 downto 0), outF);
-	g: Ram64 port map(clock, input, v7, address(5 downto 0), outG);
-	h: Ram64 port map(clock, input, v8, address(5 downto 0), outH);
+	a: Ram64 port map(clock, input, vetor1, address(5 downto 0), outA);
+	b: Ram64 port map(clock, input, vetor2, address(5 downto 0), outB);
+	c: Ram64 port map(clock, input, vetor3, address(5 downto 0), outC);
+	d: Ram64 port map(clock, input, vetor4, address(5 downto 0), outD);
+	e: Ram64 port map(clock, input, vetor5, address(5 downto 0), outE);
+	f: Ram64 port map(clock, input, vetor6, address(5 downto 0), outF);
+	g: Ram64 port map(clock, input, vetor7, address(5 downto 0), outG);
+	h: Ram64 port map(clock, input, vetor8, address(5 downto 0), outH);
 	
 	
 	mux: Mux8Way16 port map(outA, outB, outC, outD, outE, outF, outG, outH, address(8 downto 6), output);
