@@ -18,7 +18,7 @@ ROOT_PATH = subprocess.Popen(
     ['git', 'rev-parse', '--show-toplevel'],
     stdout=subprocess.PIPE).communicate()[0].rstrip().decode('utf-8')
 sys.path.insert(0, ROOT_PATH + '/Projetos/Z01-tools/scripts/')
-from config.txt import *
+from config import *
 
 
 class tstLogiSeq(object):
