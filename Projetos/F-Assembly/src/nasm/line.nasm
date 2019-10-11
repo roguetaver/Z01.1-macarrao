@@ -13,7 +13,7 @@
   notw %D
 
 
-  leaw $5000, %A
+  leaw $18794, %A
   movw %D, (%A)
   incw %A
   movw %D, (%A)
@@ -58,7 +58,7 @@
   incw %A
   movw %D, (%A)
   
-  leaw $5001, %A
+  leaw $18795, %A
   movw %D, (%A)
   incw %A
   movw %D, (%A)
@@ -103,7 +103,7 @@
   incw %A
   movw %D, (%A)
 
-  leaw $5002, %A
+  leaw $18796, %A
   movw %D, (%A)
   incw %A
   movw %D, (%A)
@@ -148,7 +148,7 @@
   incw %A
   movw %D, (%A)
 
-  leaw $5003, %A
+  leaw $18797, %A
   movw %D, (%A)
   incw %A
   movw %D, (%A)
