@@ -1,17 +1,17 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
-entity And16 is
+entity And1 is
 	port ( 
-			a:   in  STD_LOGIC_VECTOR(15 downto 0);
-			b:   in  STD_LOGIC_VECTOR(15 downto 0);
-			q:   out STD_LOGIC_VECTOR(15 downto 0));
+			x:   in  STD_LOGIC;
+			y:   in  STD_LOGIC;
+			q:   out STD_LOGIC);
 end entity;
 
-architecture arch of And16 is
+architecture arch of And1 is
 begin
 
-q <= a and b;
+q <= x and y;
 
 
 end architecture;
