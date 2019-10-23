@@ -14,18 +14,10 @@ from os.path import join, dirname
 import sys, subprocess
 from pathlib import Path
 
-<<<<<<< HEAD
 
 sys.path.insert(0, str(Path.home()) + '/Z01-Tools/scripts/')
 from config import *
-=======
-ROOT_PATH = subprocess.Popen(
-    ['git', 'rev-parse', '--show-toplevel'],
-    stdout=subprocess.PIPE).communicate()[0].rstrip().decode('utf-8')
-sys.path.insert(0, ROOT_PATH + '/Projetos/Z01-tools/scripts/')
-from config import *
 
->>>>>>> f7eb1f2c9ecc567ccec1118eb98d56b8f8f14072
 
 class tstLogiSeq(object):
 
