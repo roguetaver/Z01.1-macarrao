@@ -23,6 +23,48 @@ entity ControlUnit is
 end entity;
 
 architecture arch of ControlUnit is
+
+	signal r0,r1,r2, i17, j0, j1, j2: std_logic;
+
+
 begin
+
+r0<=instruction(13);
+r1<=instruction(14);
+r2<=instruction(15);
+i17<= instruction(17);
+j0 <= instruction(0);
+j1 <= instruction(1);
+j2 <= instruction(2);
+
+
+zx <= i17 and instruction(12);
+nx <= i17 and instruction(11);
+zy <= i17 and instruction(10);
+ny <= i17 and instruction(9);
+f  <= i17 and instruction(8);
+no  <= i17 and instruction(7);
+
+muxALUI_A <=  not i17;
+muxAM <= i17 and ((r2 or r1 or r0)and(r2 or r1 or not r0));
+muxAMD_ALU <= i17 and (not r2 or r1 or not r0);
+muxSD_ALU <= i17 and ((not r2 and not r1 and not no) or (not r2 and r1 and not r0));
+
+loadA <= not i17 or (i17 and instruction(6));
+loadD <= i17 and instruction(4);
+loadS <= i17 and instruction(5);
+loadM <= i17 and instruction(3);
+loadPC <= i17 and ((not j2 and not j1 and j0 and not ng and not zr) or 
+					(not j2 and  j1  and  not j0  and zr) or
+					(not j2 and j1 and j0 and not ng ) or
+					(j2 and not j1 and not j0 and ng) or
+					(j2 and not j1 and j0 and not zr) or
+					(j2 and j1 and not j0 and ng and zr) or
+					(j2 and j1 and j0 ));
+
+
+
+
+
 
 end architecture;
