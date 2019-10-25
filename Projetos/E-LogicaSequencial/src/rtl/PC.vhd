@@ -85,3 +85,6 @@ Reg: Register16 port map (
 output <= regout;
 		
 end architecture;
+
+
+
