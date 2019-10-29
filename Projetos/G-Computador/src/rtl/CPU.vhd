@@ -107,18 +107,6 @@ architecture arch of CPU is
   signal s_pcout: STD_LOGIC_VECTOR(15 downto 0);
 
   
-
-  port(
-    clock:       in  STD_LOGIC;                        -- sinal de clock para CPU
-    reset:       in  STD_LOGIC;                        -- reinicia toda a CPU (inclusive o Program Counter)
-    inM:         in  STD_LOGIC_VECTOR(15 downto 0);    -- dados lidos da memória RAM
-    instruction: in  STD_LOGIC_VECTOR(17 downto 0);    -- instrução (dados) vindos da memória ROM
-    outM:        out STD_LOGIC_VECTOR(15 downto 0);    -- dados para gravar na memória RAM
-    writeM:      out STD_LOGIC;                        -- faz a memória RAM gravar dados da entrada
-    addressM:    out STD_LOGIC_VECTOR(14 downto 0);    -- envia endereço para a memória RAM
-    pcout:       out STD_LOGIC_VECTOR(14 downto 0)     -- endereço para ser enviado a memória ROM
-    );
-
 begin
 
 ULA: ALU port map(s_muxSDout,s_muxAMD_ALUout, c_zx, c_nx, c_zy, c_ny, c_f, c_no, c_zr, c_ng, s_ALUout);
@@ -137,13 +125,14 @@ regD : Register16 port map(clock, s_ALUout, c_loadD, s_regDout);
 
 regA : Register16 port map(clock, s_muxALUI_Aout, c_loadA, s_regAout);
 
-PC : PC port map(clock, '1', c_loadPC, reset, s_regAout, pcout);
+PCn : PC port map(clock, '1', c_loadPC, reset, s_regAout, s_pcout);
 
 c_unit : ControlUnit port map(instruction, c_zr, c_ng, c_muxALUI_A, c_muxAM, c_muxAMD_ALU, 
   c_muxSD_ALU, c_zx, c_nx, c_zy, c_ny, c_f, c_no, c_loadA, c_loadD, c_loadS, writeM ,c_loadPC);
 
 
-addressM <= s_regAout;
+addressM <= s_regAout(14 downto 0);
 outM <= s_ALUout;
+pcout <= s_pcout(14 downto 0);
 
 end architecture;

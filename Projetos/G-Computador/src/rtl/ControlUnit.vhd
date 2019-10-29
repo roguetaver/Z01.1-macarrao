@@ -11,7 +11,7 @@ use ieee.std_logic_1164.all;
 entity ControlUnit is
     port(
 		instruction                 : in STD_LOGIC_VECTOR(17 downto 0);  -- instrução para executar
-		zr,ng                       : in STD_LOGIC;                      -- valores zr(se zero) e ng(se negativo) da ALU
+		zr,ng                       : in STD_LOGIC := '0';                      -- valores zr(se zero) e ng(se negativo) da ALU
 		muxALUI_A                   : out STD_LOGIC;                     -- mux que seleciona entre instrução e ALU para reg. A
 		muxAM                       : out STD_LOGIC;                     -- mux que seleciona entre reg. A e Mem. RAM para ALU
 		muxSD_ALU                   : out STD_LOGIC;                     -- mux que seleciona entre reg. S e reg. D
@@ -24,7 +24,7 @@ end entity;
 
 architecture arch of ControlUnit is
 
-	signal r0,r1,r2, i17, j0, j1, j2: std_logic;
+	signal r0,r1,r2, i17, j0, j1, j2, sno: std_logic;
 
 
 begin
@@ -43,12 +43,13 @@ nx <= i17 and instruction(11);
 zy <= i17 and instruction(10);
 ny <= i17 and instruction(9);
 f  <= i17 and instruction(8);
-no  <= i17 and instruction(7);
+sno  <= i17 and instruction(7);
+
 
 muxALUI_A <=  not i17;
 muxAM <= i17 and ((r2 or r1 or r0)and(r2 or r1 or not r0));
 muxAMD_ALU <= i17 and (not r2 or r1 or not r0);
-muxSD_ALU <= i17 and ((not r2 and not r1 and not no) or (not r2 and r1 and not r0));
+muxSD_ALU <= i17 and ((not r2 and not r1 and not sno) or (not r2 and r1 and not r0));
 
 loadA <= not i17 or (i17 and instruction(6));
 loadD <= i17 and instruction(4);
@@ -60,10 +61,10 @@ loadPC <= i17 and ((not j2 and not j1 and j0 and not ng and not zr) or
 					(j2 and not j1 and not j0 and ng) or
 					(j2 and not j1 and j0 and not zr) or
 					(j2 and j1 and not j0 and ng and zr) or
-					(j2 and j1 and j0 ));
+(j2 and j1 and j0 ));
 
 
-
+no <= sno;
 
 
 
