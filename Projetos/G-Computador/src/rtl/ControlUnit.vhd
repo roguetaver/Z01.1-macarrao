@@ -47,21 +47,16 @@ sno  <= i17 and instruction(7);
 
 
 muxALUI_A <=  not i17;
-muxAM <= i17 and ((r2 or r1 or r0)and(r2 or r1 or not r0));
-muxAMD_ALU <= i17 and (not r2 or r1 or not r0);
-muxSD_ALU <= i17 and ((not r2 and not r1 and not sno) or (not r2 and r1 and not r0));
+muxAM <=   instruction(14) and not instruction(15);
+muxAMD_ALU <=  not instruction(15);
+muxSD_ALU <= not instruction(13) and not instruction(15);
 
-loadA <= not i17 or (i17 and instruction(6));
-loadD <= i17 and instruction(4);
-loadS <= i17 and instruction(5);
-loadM <= i17 and instruction(3);
-loadPC <= i17 and ((not j2 and not j1 and j0 and not ng and not zr) or 
-					(not j2 and  j1  and  not j0  and zr) or
-					(not j2 and j1 and j0 and not ng ) or
-					(j2 and not j1 and not j0 and ng) or
-					(j2 and not j1 and j0 and not zr) or
-					(j2 and j1 and not j0 and ng and zr) or
-(j2 and j1 and j0 ));
+loadA <= instruction(6) or (not instruction(17));
+loadS <= instruction(5) and instruction(17);
+loadD <= instruction(4) and instruction(17);
+loadM <= instruction(3) and instruction(17);
+loadPC <= (instruction(17) and ((instruction(2) and ng and (not zr)) or (instruction(1) and zr) or (instruction(0) and (not zr) and (not ng))));
+
 
 
 no <= sno;
