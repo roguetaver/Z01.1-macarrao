@@ -18,9 +18,9 @@ architecture tb of tb_And16 is
 
 	component And16 is
 	port (
-			x:   in  STD_LOGIC_VECTOR(15 downto 0);
-			y:   in  STD_LOGIC_VECTOR(15 downto 0);
-			q:   out STD_LOGIC_VECTOR(15 downto 0));
+			a:   in  STD_LOGIC_VECTOR(15 downto 0);
+      b:   in  STD_LOGIC_VECTOR(15 downto 0);
+      q:   out STD_LOGIC_VECTOR(15 downto 0));
 	end component;
 
   signal  inA, inB, outQ : STD_LOGIC_VECTOR(15 downto 0);
