@@ -42,7 +42,8 @@ architecture rtl of TopLevel is
 ---------------
 begin
  
- HEX0 <= "1000000" when (sw(3 downto 0) = "0000") else
+ HEX0 <= 
+ 		"1000000" when (sw(3 downto 0) = "0000") else
  		"1111001" when (sw(3 downto 0) = "0001") else
  		"0100100" when (sw(3 downto 0) = "0010") else
  		"0110000" when (sw(3 downto 0) = "0011") else
@@ -52,6 +53,8 @@ begin
  		"1111000" when (sw(3 downto 0) = "0111") else
  		"0000000" when (sw(3 downto 0) = "1000") else
  		"0010000" when (sw(3 downto 0) = "1001") else
+
+ 		
  		"0001000" when (sw(3 downto 0) = "1010") else
  		"0000011" when (sw(3 downto 0) = "1011") else
  		"1000110" when (sw(3 downto 0) = "1100") else

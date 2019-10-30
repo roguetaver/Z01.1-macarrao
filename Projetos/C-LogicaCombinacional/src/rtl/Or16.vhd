@@ -1,17 +1,16 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
-entity Or3Way is
-	port (
-			y:   in  STD_LOGIC;
-			x:   in  STD_LOGIC;
-			z:   in  STD_LOGIC;
-			q:   out STD_LOGIC);
+entity Or16 is
+	port ( 
+			a:   in  STD_LOGIC_VECTOR(15 downto 0);
+			b:   in  STD_LOGIC_VECTOR(15 downto 0);
+			q:   out STD_LOGIC_VECTOR(15 downto 0));
 end entity;
 
-architecture arch of Or3Way is
+architecture arch of Or16 is
 begin
 
-q <= x or y or z;
+	q <= a or b;
 
 end architecture;

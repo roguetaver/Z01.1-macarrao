@@ -1,16 +1,16 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
-entity Not1 is
+entity Not16 is
 	port ( 
-			x:   in  STD_LOGIC;
-			q:   out STD_LOGIC);
+			a:   in  STD_LOGIC_VECTOR(15 DOWNTO 0);
+			q:   out STD_LOGIC_VECTOR(15 DOWNTO 0));
 end entity;
 
-architecture arch of Not1 is
+architecture arch of Not16 is
 
 begin
 
-q <= not x;
+q <= not a;
 
 end architecture;

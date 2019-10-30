@@ -25,6 +25,8 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.all;
+
 
 entity ALU is
 	port (
@@ -93,23 +95,26 @@ architecture  rtl OF alu is
 		);
 	end component;
 
-   SIGNAL zxout,zyout,nxout,nyout,andout,adderout,muxout,precomp: std_logic_vector(15 downto 0);
-
+   SIGNAL zxout,zyout,nxout,nyout,andout,adderout,muxout,precomp : std_logic_vector(15 downto 0);
+--fix
 begin
   -- Implementação vem aqui!
-   zeradorx: zerador16 port map (zx, x, zxout);
-	negadorx: inversor16 port map (nx, zxout, nxout); 
-	zeradory: zerador16 port map (zy, y, zyout);
-	negadory: inversor16 port map (ny, zyout, nyout);
-	
-	somador: Add16 port map (nxout, nyout, adderout);
-	adder: And16 port map (nxout, nyout, andout);
-	
-	inversor: inversor16 port map (no, muxout, precomp);
-	comparadorzr: comparador16 port map (precomp, zr, ng);
-	
-	mux: Mux16 port map (andout, adderout, f, muxout);
-	
-	saida <= precomp;
+
+  ZeradorX: zerador16 port map (z=>zx, a=>x, y=>zxout);
+  ZeradorY: zerador16 port map (z=>zy, a=>y, y=>zyout);
+
+  IversorX: inversor16 port map (z=>nx, a=>zxout, y=>nxout);
+  IversorY: inversor16 port map (z=>ny, a=>zyout, y=>nyout);
+
+  Mult: And16 port map (a=>nxout, b=>nyout, q=>andout);
+  Adder: Add16 port map (a=>nxout, b=>nyout, q=>adderout);
+
+  Mux: Mux16 port map (a=>andout, b=>adderout, sel=>f, q=>muxout);
+
+  Precomparador: inversor16 port map (z=>no, a=>muxout, y=>precomp);
+
+  Comparador: comparador16 port map (a=>precomp, zr=>zr, ng=>ng);
+
+  saida <= precomp;
 
 end architecture;
