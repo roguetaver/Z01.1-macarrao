@@ -16,6 +16,116 @@ public class Code {
      * @return Opcode (String de 4 bits) com código em linguagem de máquina para a instrução.
      */
     public static String dest(String[] mnemnonic) {
+        char d3= '0', d2= '0', d1= '0', d0 = '0';
+        StringBuilder sb = new StringBuilder();
+        if(mnemnonic.length == 2){
+            if(mnemnonic[0].equals("jmp") || mnemnonic[0].equals("je") || mnemnonic[0].equals("jne") || mnemnonic[0].equals("jg") || mnemnonic[0].equals("jge") || mnemnonic[0].equals("jl") || mnemnonic[0].equals("jle")){
+                d3 = '0';
+                d2 = '0';
+                d1 = '0';
+                d0 = '0';
+            } else {
+                switch (mnemnonic[1]) {
+                    case "%A":
+                        d3 = '1';
+                        break;
+                    case "%D":
+                        d1 = '1';
+                        break;
+                    case "%S":
+                        d2 = '1';
+                        break;
+                    case "(%A)":
+                        d0 = '1';
+                        break;
+                }
+            }
+
+        }
+        if(mnemnonic.length == 3){
+            switch (mnemnonic[2]){
+                case "%A":
+                    d3 = '1';
+                    break;
+                case "%D":
+                    d1 = '1';
+                    break;
+                case "%S":
+                    d2 = '1';
+                    break;
+                case "(%A)":
+                    d0 = '1';
+                    break;
+            }
+        }
+        if(mnemnonic.length == 4){
+            switch (mnemnonic[2]){
+                case "%A":
+                    d3 = '1';
+                    break;
+                case "%D":
+                    d1 = '1';
+                    break;
+                case "%S":
+                    d2 = '1';
+                    break;
+                case "(%A)":
+                    d0 = '1';
+                    break;
+            }
+            switch (mnemnonic[3]){
+                case "%A":
+                    d3 = '1';
+                    break;
+                case "%D":
+                    d1 = '1';
+                    break;
+                case "%S":
+                    d2 = '1';
+                    break;
+                case "(%A)":
+                    d0 = '1';
+                    break;
+
+            }
+            if(mnemnonic[0].equals("addw") || mnemnonic[0].equals("subw") || mnemnonic[0].equals("rsubw") || mnemnonic[0].equals("andw")){
+                switch (mnemnonic[3]){
+                    case "%A":
+                        d3 = '1';
+                        d2 = '0';
+                        d1 = '0';
+                        d0 = '0';
+                        break;
+                    case "%D":
+                        d1 = '1';
+                        d3 = '0';
+                        d2 = '0';
+                        d0 = '0';
+                        break;
+                    case "%S":
+                        d2 = '1';
+                        d3 = '0';
+                        d1 = '0';
+                        d0 = '0';
+                        break;
+                    case "(%A)":
+                        d0 = '1';
+                        d3 = '0';
+                        d2 = '0';
+                        d1 = '0';
+                        break;
+
+                }
+            }
+
+        }
+        sb.append(d3);
+        sb.append(d2);
+        sb.append(d1);
+        sb.append(d0);
+        return sb.toString();
+
+    }
 
 
     	return "";
@@ -27,9 +137,127 @@ public class Code {
      * @return Opcode (String de 7 bits) com código em linguagem de máquina para a instrução.
      */
     public static String comp(String[] mnemnonic) {
+        String r = "000";
+        String c = "000000";
+
+        if (mneumnonic.length == 2){
+            switch (mnemnonic[1]){
+                case "%A":
+                    r = "000";
+                break;
+                case "%D":
+                    r=  "000";
+                break;
+                case "%S":
+                    r=  "001";
+                break;
+                case "(%A)":
+                    r=  "010";
+                break;
+                default:
+                    r = "111";
+            }
+        }
+
+        if (mneumnonic.length >= 3){
+           if ((mnemnonic[1] == "%A" && mnemnonic[2] == "%D") || (mnemnonic[1] == "%D" && mnemnonic[2] == "%A"))
+               r = "000";
+           if ((mnemnonic[1] == "%S" && mnemnonic[2] == "%D") || (mnemnonic[1] == "%D" && mnemnonic[2] == "%S"))
+               r = "101";
+            if ((mnemnonic[1] == "%(A)" && mnemnonic[2] == "%D") || (mnemnonic[1] == "%D" && mnemnonic[2] == "%(A)"))
+                r = "010";
+            if ((mnemnonic[1] == "%S" && mnemnonic[2] == "%A") || (mnemnonic[1] == "%A" && mnemnonic[2] == "%S"))
+                r = "001";
+            if ((mnemnonic[1] == "%S" && mnemnonic[2] == "%(A)") || (mnemnonic[1] == "%(A)" && mnemnonic[2] == "%S"))
+                r = "011";
+        }
 
 
-    	return "";
+
+        switch (mnemnonic[0]) {
+            case "leaw":
+                c = "000000";
+                break;
+
+            case "movw":
+                if (mnemnonic[1] == "%D" || mnemnonic[1] == "%S")
+                    c = "001100";
+                else
+                    c = "110000";
+                break;
+
+            case  "decw":
+                if (mnemnonic[1] == "%D" || mnemnonic[1] == "%S")
+                    c = "001110";
+                else
+                    c = "110010";
+                break;
+
+            case  "incw":
+                if (mnemnonic[1] == "%D" || mnemnonic[1] == "%S")
+                    c = "011111";
+                else
+                    c = "110111";
+                break;
+            case "addw":
+                if (mnemnonic[1] == "%D" || mnemnonic[1] == "%S")
+                    c = "000010"
+                break;
+            case  "subw":
+                if (mnemnonic[1] == "%D" || mnemnonic[1] == "%S")
+                    c = "010011"
+            case  "rsubw":
+                if (mnemnonic[1] == "%D" || mnemnonic[1] == "%A" || mnemnonic[1] == "(%A)")
+                    c = "000111"
+                break;
+            case  "andw":
+                if (mnemnonic[1] == "%D" || mnemnonic[1] == "%S")
+                    c = "010101"
+                break;
+            case  "orw":
+                if (mnemnonic[1] == "%D" || mnemnonic[1] == "%S")
+                    c = "000000"
+                break;
+            case  "notw":
+                if (mnemnonic[1] == "%D" || mnemnonic[1] == "%S")
+                    c = "001101";
+                else
+                    c = "110001";
+            case  "negw":
+                if (mnemnonic[1] == "%D" || mnemnonic[1] == "%S")
+                    c = "001111";
+                else
+                    c = "110011";
+
+
+
+
+                    default:
+                c = "111111"
+        }
+
+         return r+c
+
+        if(mnemnonic.length == 2) {
+            if (mnemnonic[0].equals("jmp") || mnemnonic[0].equals("je") || mnemnonic[0].equals("jne") || mnemnonic[0].equals("jg") || mnemnonic[0].equals("jge") || mnemnonic[0].equals("jl") || mnemnonic[0].equals("jle")) {
+                switch (mnemnonic[1]) {
+                    case "%D":
+                    case "%S":
+                        c3 = '1';
+                        c2 = '1';
+                        break;
+                    case "%A":
+                    case "(%A)":
+                        c5 = '1';
+                        c4 = '1';
+                        break;
+                }
+            }
+
+        }
+
+
+
     }
 
     /**
@@ -38,10 +266,32 @@ public class Code {
      * @return Opcode (String de 3 bits) com código em linguagem de máquina para a instrução.
      */
     public static String jump(String[] mnemnonic) {
+        switch (mnemnonic[0]) {
+            case "jmp":
+                return "111";
+
+            case "jle":
+                return "110";
+
+            case "jne":
+                return "101";
+
+            case "jl":
+                return "100";
+
+            case "jge":
+                return "011";
+
+            case "je":
+                return "010";
+
+            case "jg":
+                return "001";
+            default:
+                return "000";
 
 
-        return "";
-    }
+        }
 
     /**
      * Retorna o código binário de um valor decimal armazenado numa String.
