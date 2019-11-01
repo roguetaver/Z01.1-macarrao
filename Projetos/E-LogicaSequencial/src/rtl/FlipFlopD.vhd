@@ -22,4 +22,25 @@ architecture arch of FlipFlopD is
 
 begin
 
+process(clock,clear,preset)
+	
+	begin
+
+
+		if (preset = '1') then 
+			
+			q<= '1';
+		
+		elsif (clear = '1') then
+			
+			q<='0';
+							
+		elsif(rising_edge(clock)) then
+			q<=d;
+
+		end if;
+
+	end process;
+
+
 end architecture;
