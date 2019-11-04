@@ -6,7 +6,6 @@
 import os
 import sys, subprocess, time
 from pathlib import Path
-
 sys.path.insert(0, str(Path.home()) + '/Z01-Tools/scripts/')
 from config import *
 
