@@ -127,9 +127,9 @@ public class CodeTest  {
             assertTrue("movw %A %D",Code.comp(new String[] {"movw","%A","%D"}).equals("000110000"));
             assertTrue("movw %S %D",Code.comp(new String[] {"movw","%S","%A"}).equals("001001100"));
             assertTrue("movw %S %A",Code.comp(new String[] {"movw","%S","%A"}).equals("001001100"));
-            assertTrue("movw %S (%A)",Code.comp(new String[] {"movw","%S","(%A)"}).equals("001001100"));
+            assertTrue("movw %S (%A)",Code.comp(new String[] {"movw","%S","(%A)"}).equals("011001100"));
             assertTrue("movw %D %A",Code.comp(new String[] {"movw","%D","%A"}).equals("000001100"));
-            assertTrue("movw %D (%A)",Code.comp(new String[] {"movw","%D","(%A)"}).equals("000001100"));
+            assertTrue("movw %D (%A)",Code.comp(new String[] {"movw","%D","(%A)"}).equals("010001100"));
             assertTrue("movw (%A), %A"		,Code.comp(new String[] {"movw","(%A)","%A"}).equals("010110000"));
 
             assertTrue("addw %A   %D %D",Code.comp(new String[] {"addw","%A","%D","%D"}).equals("000000010"));

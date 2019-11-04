@@ -128,9 +128,6 @@ public class Code {
     }
 
 
-    	return "";
-    }
-
     /**
      * Retorna o código binário do mnemônico para realizar uma operação de cálculo.
      * @param  mnemnonic vetor de mnemônicos "instrução" a ser analisada.
@@ -140,7 +137,7 @@ public class Code {
         String r = "000";
         String c = "000000";
 
-        if (mneumnonic.length == 2){
+        if (mnemnonic.length == 2){
             switch (mnemnonic[1]){
                 case "%A":
                     r = "000";
@@ -159,17 +156,21 @@ public class Code {
             }
         }
 
-        if (mneumnonic.length >= 3){
+        if (mnemnonic.length >= 3){
            if ((mnemnonic[1] == "%A" && mnemnonic[2] == "%D") || (mnemnonic[1] == "%D" && mnemnonic[2] == "%A"))
                r = "000";
            if ((mnemnonic[1] == "%S" && mnemnonic[2] == "%D") || (mnemnonic[1] == "%D" && mnemnonic[2] == "%S"))
                r = "101";
-            if ((mnemnonic[1] == "%(A)" && mnemnonic[2] == "%D") || (mnemnonic[1] == "%D" && mnemnonic[2] == "%(A)"))
+            if ((mnemnonic[1] == "(%A)" && mnemnonic[2] == "%D") || (mnemnonic[1] == "%D" && mnemnonic[2] == "(%A)") || (mnemnonic[1] == "(%A)" && mnemnonic[2] == "$1" ))
                 r = "010";
-            if ((mnemnonic[1] == "%S" && mnemnonic[2] == "%A") || (mnemnonic[1] == "%A" && mnemnonic[2] == "%S"))
+            if ((mnemnonic[1] == "%S" && mnemnonic[2] == "%A") || (mnemnonic[1] == "%A" && mnemnonic[2] == "%S") || (mnemnonic[1] == "%S" && mnemnonic[2] == "$1"))
                 r = "001";
-            if ((mnemnonic[1] == "%S" && mnemnonic[2] == "%(A)") || (mnemnonic[1] == "%(A)" && mnemnonic[2] == "%S"))
+            if ((mnemnonic[1] == "%S" && mnemnonic[2] == "(%A)") || (mnemnonic[1] == "(%A)" && mnemnonic[2] == "%S"))
                 r = "011";
+            if ((mnemnonic[1] == "%A" && mnemnonic[2] == "(%A)"))
+                r = "000";
+            if ((mnemnonic[1] == "(%A)" && mnemnonic[2] == "%A"))
+                r = "010";
         }
 
 
@@ -200,64 +201,63 @@ public class Code {
                     c = "110111";
                 break;
             case "addw":
-                if (mnemnonic[1] == "%D" || mnemnonic[1] == "%S")
-                    c = "000010"
+                    c = "000010";
                 break;
             case  "subw":
-                if (mnemnonic[1] == "%D" || mnemnonic[1] == "%S")
-                    c = "010011"
+                if ( ((mnemnonic[1] == "%D" || mnemnonic[1] == "%S") &&  mnemnonic[2] == "%A" ) || ((mnemnonic[1] == "%D" || mnemnonic[1] == "%S") &&  mnemnonic[2] == "(%A)" ) || (mnemnonic[1] == "%S"&& mnemnonic[2] == "%D") )
+
+                    c = "010011";
+                else if (mnemnonic[1] == "%A" && mnemnonic[2] == "$1"|| (mnemnonic[1] == "(%A)" && mnemnonic[2] == "$1"))
+                    c = "110010";
+                else
+                    c = "000111";
+                break;
+
+
+
             case  "rsubw":
-                if (mnemnonic[1] == "%D" || mnemnonic[1] == "%A" || mnemnonic[1] == "(%A)")
-                    c = "000111"
+                    c = "000111";
                 break;
             case  "andw":
-                if (mnemnonic[1] == "%D" || mnemnonic[1] == "%S")
-                    c = "010101"
+                    c = "000000";
                 break;
             case  "orw":
-                if (mnemnonic[1] == "%D" || mnemnonic[1] == "%S")
-                    c = "000000"
+                    c = "010101";
                 break;
             case  "notw":
                 if (mnemnonic[1] == "%D" || mnemnonic[1] == "%S")
                     c = "001101";
                 else
                     c = "110001";
+                break;
             case  "negw":
                 if (mnemnonic[1] == "%D" || mnemnonic[1] == "%S")
                     c = "001111";
                 else
                     c = "110011";
-
-
-
-
-                    default:
-                c = "111111"
+                break;
+            default:
+                c = "111111";
         }
 
-         return r+c
 
         if(mnemnonic.length == 2) {
             if (mnemnonic[0].equals("jmp") || mnemnonic[0].equals("je") || mnemnonic[0].equals("jne") || mnemnonic[0].equals("jg") || mnemnonic[0].equals("jge") || mnemnonic[0].equals("jl") || mnemnonic[0].equals("jle")) {
                 switch (mnemnonic[1]) {
                     case "%D":
+                        c = "001100";
                     case "%S":
-                        c3 = '1';
-                        c2 = '1';
+                        c = "001100";
                         break;
-                    case "%A":
-                    case "(%A)":
-                        c5 = '1';
-                        c4 = '1';
+                    case "%A": case "(%A)":
+                        c = "000011";
                         break;
                 }
             }
 
         }
 
-
-
+        return r+c;
     }
 
     /**
@@ -292,6 +292,7 @@ public class Code {
 
 
         }
+    }
 
     /**
      * Retorna o código binário de um valor decimal armazenado numa String.
